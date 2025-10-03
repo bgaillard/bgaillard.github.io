@@ -1,0 +1,11 @@
+// Placeholder to allow defining custom styles that override everything else.
+// (Use `_sass/minima/custom-variables.scss` to override variable defaults)
+
+h2 > a::before {
+  font-size: 50%;
+  display: none;
+}
+
+h2:hover > a::before {
+  display: inline-block;
+}

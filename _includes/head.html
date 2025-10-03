@@ -1,0 +1,39 @@
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {%- seo -%}
+  <link id="main-stylesheet" rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+  {%- feed_meta -%}
+  {%- if jekyll.environment == 'production' and site.google_analytics -%}
+    {%- include google-analytics.html -%}
+  {%- endif -%}
+
+  {%- include custom-head.html -%}
+  
+  <script src="https://kit.fontawesome.com/1fac76b4b4.js" crossorigin="anonymous"></script>
+</head>
+
+<!-- Utility functions -->
+<script>
+h = function(e) {
+  var title = e.getAttribute("data-title");
+  var decoded = atob(title);
+  e.setAttribute("title", decoded);
+}
+d = function(e) {
+  var href = e.getAttribute("data-href");
+  var decoded = atob(href);
+  window.open(decoded, "_blank");
+}
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZMGW1VME89"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-ZMGW1VME89');
+</script>
