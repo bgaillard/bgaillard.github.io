@@ -1,24 +1,23 @@
 ---
 layout: post
 title: You have mail.
+tags: linux, thunderbird, imap4d, mailutils, mail, system
 excerpt: Learn how to manage system mails on Linux using Thunderbird. Set up an IMAP server with imap4d and configure Thunderbird to read local mailboxes, ensuring you never miss important notifications.
 ---
 
 ## Introduction
 
-If you are using a Linux operating system like me there are chances you often see a message like the following each time you login to your terminal.
+If you use a Linux operating system like I do, you may often see a message like the following each time you log in to your terminal:
 
 ```bash
 You have mail.
 ```
 
-In my case I completely forget about it during a long time because I configured my terminal with [Alacritty](https://github.com/alacritty/alacritty) + [Zellij](https://github.com/zellij-org/zellij) which is instantaneously opened when I open a terminal window.
+In my case, I overlooked this message for an extended period because I configured my terminal with [Alacritty](https://github.com/alacritty/alacritty) + [Zellij](https://github.com/zellij-org/zellij), which opens instantaneously when I start a terminal window. Consequently, the message was instantly hidden, and I never saw it.
 
-As a result the message was instantaneously hidden and I never saw it.
+You might find yourself in a similar situation, which is not ideal because you could miss important notifications sent by programs encountering various issues.
 
-You are perhaps in the same configuration and it's not a good situation because you can miss important notifications sent by programs encountering diverse problems.
-
-This article explains from where those mails are coming, how to configure your system to never miss those notifications and easily consult them in [Mozilla Thunderbird](https://www.thunderbird.net/).
+This article aims to explain the origin of these emails, how to configure your system to ensure you never miss these notifications, and how to easily access them using [Mozilla Thunderbird](https://www.thunderbird.net/).
 
 
 ## Read the mails with `mail` or `mailx`
@@ -51,7 +50,7 @@ If you are careful you may have noticed that in your system you do not have any 
 
 So it seems that the `root` user does not receive any email.
 
-Also, if you try to send an email as `root` to the local `root` user it may by received by an other user, here is an example.
+Also, if you try to send an email as `root` to the local `root` user it may be received by an other user, here is an example.
 
 ```bash
 # Send an email as root to the local root user
@@ -65,7 +64,7 @@ baptiste
 $ ls /var/spool/mail
 baptiste
 
-# If fact the email was forwarded to my main user mailbox
+# In fact the email was forwarded to my main user mailbox
 $ mail
 Mail version 8.1.2 01/15/2001.  Type ? for help.
 "/var/mail/baptiste": 1 message 1 new
@@ -80,7 +79,7 @@ The explanation about this behavior can be found [here](https://askubuntu.com/qu
 root: baptiste
 ```
 
-Under Debian this file is managed by `exim4`, the documentation about the `/etc/aliases` file can be found in [`exim4-config_files - /etc/aliases`](https://manpages.debian.org/jessie/exim4-config/etc-aliases.5#/etc/aliases).
+Under Debian this file is managed by [`exim4`](https://www.exim.org/), the documentation about the `/etc/aliases` file can be found in [`exim4-config_files - /etc/aliases`](https://manpages.debian.org/jessie/exim4-config/etc-aliases.5#/etc/aliases).
 
 So `root` emails are definitely not lost, they are just forwarded to our main user mailbox which is exactly what we want in most cases on a personal computer.
 
@@ -97,7 +96,7 @@ Here is a non-exhaustive list of programs that can send mails:
 - Package managers ([`apt`](https://wiki.debian.org/Apt), [`yum`](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/system_administrators_guide/ch-yum), [`dnf`](https://github.com/rpm-software-management/dnf))
 - The Linux Kernel and Hardware monitoring tools ([`smartd`](https://github.com/smartmontools/smartmontools), [`mdadm`](https://github.com/md-raid-utilities/mdadm/).)
 
-For example just search the "mail" keyword on the [cron(8) - Linux manual page](https://man7.org/linux/man-pages/man8/cron.8.html) to constat that the `crond` Daemon is designed to send mails using `sendmail` by default.
+For example just search the "mail" keyword in the [cron(8) - Linux manual page](https://man7.org/linux/man-pages/man8/cron.8.html) to constat that the `crond` Daemon is designed to send mails using `sendmail` by default.
 
 You can easily test it editing your crontab with `crontab -e` and adding a line like the following:
 
@@ -122,7 +121,7 @@ Mail version 8.1.2 01/15/2001.  Type ? for help.
 Knowing which exact program could send those mails is not what's matter the most, the important thing to understand is that when an error is encountered it can be logged in local mail boxes and it's a good practice to have a visibility on those messages.
 
 
-## Which program display the `You have mail.` message?
+## Which program displays the `You have mail.` message?
 
 The display of the `You have mail.` message is natively handled by the shell you are using.
 
@@ -137,7 +136,7 @@ You can get information about it in the manual page of your shell, especially th
 
 You'll get similar results with [ksh(1) - Linux manual page](https://linux.die.net/man/1/ksh) or [the Zsh manual](https://zsh.sourceforge.io/Doc/Release/Parameters.html#index-MAILCHECK).
 
-As explained if you want to disable the display of the `You have mail.` message at login you can set the `MAILCHECK` variable to `0` in your login shell configuration file (i.e. in the `~/.profile` file).
+As explained in those manuals if you want to disable the display of the `You have mail.` message at login you can set the `MAILCHECK` variable to `0` in your login shell configuration file (i.e. in the `~/.profile` file).
 
 ```bash
 # ~/.profile
@@ -145,9 +144,9 @@ unset MAILCHECK
 ```
 
 
-## Better management with `imap4d` and Tunderbird
+## Better management with `imap4d` and Thunderbird
 
-Now that we know where the system mails are stored, how to read then with basic CLI commands, which programs are sending them and which program is displaying the `You have mail.` message we can improve our setup to never miss those mails.
+Now that we know where the system mails are stored, how to read them with basic CLI commands, which programs are sending them and which program is displaying the `You have mail.` message we can improve our setup to never miss those mails.
 
 My proposition is to manage those mails with [Thunderbird](https://www.thunderbird.net/) because we'll natively receive a visual notification each time a new mail appears.
 
@@ -155,7 +154,7 @@ Here I mention Thunderbird but if you prefer another mail client supporting the 
 
 In fact you'll see that Thunderbird sadly abandoned the support of local mailboxes, that's why I wrote this section to propose a workaround using the [`imap4d`](https://mailutils.org/manual/html_section/imap4d.html) Daemon from the [GNU Mailutils](https://mailutils.org/) suite.
 
-I did not tried other email clients but I suppose few of them still support local mailboxes and you do not need to continue reading this article. If your have that luck just configure your mail client to read the local mailbox located in `/var/mail/$USER` or `/var/spool/mail/$USER` and you're ready to work with notifications and never miss important mails.
+I did not tried other email clients but I suppose few of them still support local mailboxes and you do not need to continue reading this section. If your have that luck just configure your mail client to read the local mailbox located in `/var/mail/$USER` or `/var/spool/mail/$USER` and you're ready to work with notifications and never miss important mails.
 
 ### No more mail spool support in Thunderbird
 
@@ -246,7 +245,7 @@ mailutils-imap4d.service disabled enabled
 1 unit files listed.
 ```
 
-Do not enable or start the service, we'll do it in the next sections.
+Do not enable or start the service now, we'll do it in the next sections.
 
 
 #### Create the `imap4d` configuration file
@@ -294,7 +293,7 @@ program imap4d {
   #     directory "$home";
   #   };
   #
-  # This is not what I want, it also cause problems giving access to all files in my home directory. So here I just 
+  # This is not what we want, it also cause problems giving access to all files in my home directory. So here I just 
   # change this setup to use a non-existing file.
   namespace personal {
     prefix "" {
@@ -340,7 +339,7 @@ We can now enable and start the `imap4d` service.
 
 ```bash
 # Create the '~/.mail/' folder to avoid "error setting mail group: Operation not permitted" errors
-$ mkdir ~/.mail
+mkdir ~/.mail
 
 # Enable the imap4d service
 sudo systemctl enable mailutils-imap4d.service
@@ -349,8 +348,7 @@ sudo systemctl enable mailutils-imap4d.service
 sudo systemctl start mailutils-imap4d.service
 
 # Check the imap4d process is running
-$ ps aux | grep imap4d
-baptiste   78559  0.0  0.0  28420  4060 ?        S    13:49   0:00 /usr/sbin/imap4d --config-file=~/.config/imap4d.conf --daemon
+ps aux | grep imap4d
 
 # Ensure no errors have occurred starting the imap4d Daemon
 sudo journalctl -u mailutils-imap4d.service
@@ -399,6 +397,23 @@ The final step is to configure Thunderbird to read our local mailboxes through o
 
 ### Import the `mkcert` Root CA in Thunderbird
 
+First we have to import the `mkcert` Root CA in Thunderbird to avoid TLS errors because we are using a self-signed certificate.
+
+To do it open Thunderbird and go to `Settings -> Privacy & Security -> Certificates -> Manage Certificates...`.
+
+In the `Authorities` tab click on the `Import...` button and select the `mkcert` Root CA certificate file located in the `/usr/local/share/ca-certificates` folder. The file has a name like `mkcert_development_CA_xxxxxxxx.crt`.
+
+![Import Mkcert Root CA certificate - 1](/assets/images/posts/2025/09/15/you-have-mail/thunderbird-import-mkcert-root-ca-certificate-1.png)
+
+After clicking on the import button a dialog appears, here do not miss to check the 2 checkboxes and click on the `OK` button.
+
+![Import Mkcert Root CA certificate - 2](/assets/images/posts/2025/09/15/you-have-mail/thunderbird-import-mkcert-root-ca-certificate-2.png)
+
+After import you should see the new imported Root CA certificate in the list.
+
+![Import Mkcert Root CA certificate - 3](/assets/images/posts/2025/09/15/you-have-mail/thunderbird-import-mkcert-root-ca-certificate-3.png)
+
+You can now continue to the next step to create a new mail account in Thunderbird.
 
 ### Create a new mail account
 
@@ -428,26 +443,14 @@ Everything should be working now, you can try to send a test email to yourself w
 echo "Hello world!" | mail -s "Simple test" baptiste@localhost
 ```
 
-journalctl --user -u imap4d.service
-sudo service mailutils-imap4d stop
-man imap4d
+## Troubleshooting
 
-TODO
+### `.localhost` Hostname empty or invalid
 
-* [x] TRES IMPORTANT: Configurer les ACLs pour autoriser que 127.0.0.1
-* [x] TRES IMPORTANT: Faire que le server n'écoute que sur 127.0.0.1
-* [x] TRES IMPORTANT: Régler correctement les droits sur les répertoires utilisateurs
-* [x] TRES IMPORTANT: Configuration sur le port 993 (IMAPS)
-* [x] Positionner au bon endroit les certificats auto-signés pour avoir les bons droits
-* [ ] Configurer correctement `tls-file-checks`
-* [ ] Gérer la génération des certificats auto-signés avec Ansible
-* [ ] Gérer l'appel à `update-ca-certificates` avec Ansible
-* [ ] Documenter la fenêtre d'exception de sécurité dans Thunderbird pour les certificats TLS auto-signés
-* [ ] Voir comment faire une PR sur `mkcert` pour ajouter le Root CA dans Thunderbird directement
-* [ ] Voir comment installer un certificat `mkcert` automatiquement avec Ansible.
-* [ ] Voir comment faire pour créer et installer un certificate `mkcert` Thunderbird dans la DB de certificats de Thunderbird avec Ansible.
-* [ ] Répondre aux messages suivants
-    * [ ] https://askubuntu.com/questions/2261/how-are-administrators-supposed-to-read-roots-mail
-    * [ ] https://askubuntu.com/questions/192572/how-do-i-read-local-email-in-thunderbird/199453#199453
+You see an error message like the following:
 
-https://letsencrypt.org/docs/certificates-for-localhost/#making-and-trusting-your-own-certificates
+![`.localhost` Hostname empty or invalid](/assets/images/posts/2025/09/15/you-have-mail/troubleshooting-localhost-hostname-empty-or-invalid.png)
+
+The cause of this problem could be one of the following:
+- You miss to import the `mkcert` Root CA certificate in Thunderbird
+- You miss to check the `Trust this CA to identify websites` checkbox when importing the `mkcert` Root CA certificate in Thunderbird

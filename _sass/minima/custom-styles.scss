@@ -5,7 +5,31 @@ h2 > a::before {
   font-size: 50%;
   display: none;
 }
+h3 > a::before {
+  font-size: 70%;
+  display: none;
+}
+h4 > a::before {
+  font-size: 90%;
+  display: none;
+}
+h5 > a::before {
+  display: none;
+}
+h6 > a::before {
+  display: none;
+}
 
-h2:hover > a::before {
+h2:hover > a::before, h3:hover > a::before, h4:hover > a::before, h5:hover > a::before, h6:hover > a::before {
   display: inline-block;
+}
+
+.post-header-like-me {
+  margin-bottom: $spacing-unit;
+  margin-top: $spacing-unit;
+  padding-bottom: 18px;
+  padding-top: 18px;
+  text-align: center;
+  border-top: 1px solid $border-color-01;
+  border-bottom: 1px solid $border-color-01;
 }
