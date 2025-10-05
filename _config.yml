@@ -21,7 +21,7 @@
 title: Baptiste Gaillard
 email: baptiste.gaillard@gmail.com
 description: >-
-  Baptiste Gaillard’s IT blog: Expert insights on Platform Engineering, DevOps, Cloud, SRE, and software architecture. Practical advice for modern IT challenges.
+  Baptiste Gaillard's IT blog: Expert insights on Platform Engineering, DevOps, Cloud, SRE, and software architecture. Practical advice for modern IT challenges.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://bgaillard.github.io"
 twitter_username: jekyllrb

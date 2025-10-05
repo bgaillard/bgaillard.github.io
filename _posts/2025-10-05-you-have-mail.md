@@ -7,7 +7,7 @@ excerpt: Learn how to manage system mails on Linux using Thunderbird. Set up an 
 
 ## Introduction
 
-If you use a Linux operating system like I do, you may often see a message like the following each time you log in to your terminal:
+If you use a Linux operating system, as I do, you may often see a message like the following each time you log in to your terminal:
 
 ```bash
 You have mail.
