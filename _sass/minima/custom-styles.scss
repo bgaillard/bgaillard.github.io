@@ -33,3 +33,12 @@ h2:hover > a::before, h3:hover > a::before, h4:hover > a::before, h5:hover > a::
   border-top: 1px solid $border-color-01;
   border-bottom: 1px solid $border-color-01;
 }
+
+.comments {
+  border-top: 1px solid $border-color-01;
+  padding-top: $spacing-unit;
+
+  > .giscus {
+    padding-top: $spacing-unit;
+  }
+}
