@@ -7,7 +7,7 @@ excerpt: Learn how to manage system mails on Linux using Thunderbird. Set up an 
 
 ## Introduction
 
-If you use a Linux operating system, as I do, you may often see a message like the following each time you log in to your terminal:
+If you use a Linux operating system, you may frequently encounter the following message when logging in to your terminal:"
 
 ```bash
 You have mail.
@@ -28,7 +28,7 @@ When the message `You have mail.` is displayed just after you login with [Bash](
 
 On most systems the `/var/spool/mail` directory is a symbolic link to `/var/mail`.
 
-The messages located in those files can be read with the `mail` or `mailx` command line programs.
+You can read these messages using the `mail` or `mailx` command-line tools.
 
 ```bash
 $ mail
@@ -48,7 +48,7 @@ echo "Hello world!" | mail -s "Simple test" baptiste@localhost
 
 If you are careful you may have noticed that in your system you do not have any `/var/mail/root` or `/var/spool/mail/root` file.
 
-So it seems that the `root` user does not receive any email.
+This suggests that the `root` user does not receive emails directly.
 
 Also, if you try to send an email as `root` to the local `root` user it may be received by an other user, here is an example.
 
@@ -81,12 +81,11 @@ root: baptiste
 
 Under Debian this file is managed by [`exim4`](https://www.exim.org/), the documentation about the `/etc/aliases` file can be found in [`exim4-config_files - /etc/aliases`](https://manpages.debian.org/jessie/exim4-config/etc-aliases.5#/etc/aliases).
 
-So `root` emails are definitely not lost, they are just forwarded to our main user mailbox which is exactly what we want in most cases on a personal computer.
-
+Thus, `root` emails are not lost; they are forwarded to the main user’s mailbox, which is typically the desired behavior on a personal computer.
 
 ## Which programs send the mails?
 
-Generally those messages are sent by system programs or daemons when they encounter problems.
+These messages are typically sent by system programs or daemons when issues arise.
 
 Here is a non-exhaustive list of programs that can send mails:
 - Cron jobs ([`crond`](https://linux.die.net/man/8/crond), [`cronie`](https://github.com/cronie-crond/cronie), [`anacron`](https://linux.die.net/man/8/anacron)), also many custom script located in `/etc/cron.daily`, `/etc/cron.hourly`, `/etc/cron.weekly`, `/etc/cron.monthly` use sendmail
@@ -123,7 +122,7 @@ Knowing which exact program could send those mails is not what's matter the most
 
 ## Which program displays the `You have mail.` message?
 
-The display of the `You have mail.` message is natively handled by the shell you are using.
+The `You have mail.` message is displayed by your shell.
 
 You can get information about it in the manual page of your shell, especially the documentation of the `MAILCHECK` variable. Here is what is written for the `MAILCHECK` variable in the [bash(1) - Linux manual page](https://man7.org/linux/man-pages/man1/bash.1.html).
 
@@ -148,7 +147,7 @@ unset MAILCHECK
 
 Now that we know where the system mails are stored, how to read them with basic CLI commands, which programs are sending them and which program is displaying the `You have mail.` message we can improve our setup to never miss those mails.
 
-My proposition is to manage those mails with [Thunderbird](https://www.thunderbird.net/) because we'll natively receive a visual notification each time a new mail appears.
+I recommend managing these emails with [Thunderbird](https://www.thunderbird.net/), as it provides visual notifications for new messages.
 
 Here I mention Thunderbird but if you prefer another mail client supporting the IMAP protocol ([Evolution](https://wiki.gnome.org/Apps/Evolution), [Geary](https://wiki.gnome.org/Apps/Geary), [Betterbird](https://www.betterbird.eu/), etc.) it should work too.
 
@@ -160,7 +159,7 @@ I did not tried other email clients but I suppose few of them still support loca
 
 As explained before I initially tried to find a way to directly read the local mailboxes located in `/var/mail/$USER` or `/var/spool/mail/$USER` with Thunderbird but it appears that in recent versions of Thunderbird the maintainers decided to remove the [`movemail`](https://mailutils.org/manual/html_section/movemail.html) support (see [Remove movemail support](https://bugzilla.mozilla.org/show_bug.cgi?id=1625741)).
 
-It was not clear in the Bugzilla discussion at first but it also implies a removal of the mailbox / mail spool support, that's to say the possibility to directly read the local mailboxes in `/var/mail/$USER` or `/var/spool/mail/$USER`.
+The Bugzilla discussion initially lacked clarity, but it became evident that this change also removed support for directly reading local mailboxes in `/var/mail/$USER` or `/var/spool/mail/$USER`.
 
 There is an open issue to reintroduce the feature, but at time of writing this article it is still not implemented, see [Restore movemail / unix mailspool support in Thunderbird](https://bugzilla.mozilla.org/show_bug.cgi?id=1802145).
 
@@ -176,7 +175,7 @@ To prevent this the protocol provides 2 ways to encrypt the communications:
 
 No matter the method used we need a TLS certificate to encrypt the communications and be sure both our credentials used during the authentication phase and the emails are not sent in cleartext over the network.
 
-As we'll expose our `imap4d` server only on `localhost` I propose to create our own self-signed TLS certificate, the advantage is that it's very easy and quick to do it. 
+Since the `imap4d` server will only be exposed on localhost, I recommend creating a self-signed TLS certificate. This approach is both simple and efficient.
 
 Here is how to do it with [`mkcert`](https://github.com/FiloSottile/mkcert).
 
@@ -222,7 +221,7 @@ sudo apt install libmailutils-dev
 sudo apt install mailutils mailutils-imap4d
 ```
 
-We notice the following message during the installation of the `mailutils-imap4d` package.
+During the installation of the `mailutils-imap4d` package, the following message appears:
 
 ```bash
 ...
@@ -397,7 +396,7 @@ The final step is to configure Thunderbird to read our local mailboxes through o
 
 ### Import the `mkcert` Root CA in Thunderbird
 
-First we have to import the `mkcert` Root CA in Thunderbird to avoid TLS errors because we are using a self-signed certificate.
+First, import the `mkcert` Root CA into Thunderbird to prevent TLS errors, as we are using a self-signed certificate.
 
 To do it open Thunderbird and go to `Settings -> Privacy & Security -> Certificates -> Manage Certificates...`.
 
@@ -451,6 +450,6 @@ You see an error message like the following:
 
 ![`.localhost` Hostname empty or invalid](/assets/images/posts/2025/09/15/you-have-mail/troubleshooting-localhost-hostname-empty-or-invalid.png)
 
-The cause of this problem could be one of the following:
+This issue may result from one of the following:
 - You miss to import the `mkcert` Root CA certificate in Thunderbird
 - You miss to check the `Trust this CA to identify websites` checkbox when importing the `mkcert` Root CA certificate in Thunderbird
