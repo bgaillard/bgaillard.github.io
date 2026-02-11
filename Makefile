@@ -1,4 +1,4 @@
 HUGO=hugo
 
 serve:
-	$(HUGO) server
+	$(HUGO) server --buildDrafts
