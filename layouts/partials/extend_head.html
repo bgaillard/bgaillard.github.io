@@ -1,0 +1,83 @@
+<!-- Essential for all desktop browsers -->
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/jpeg" sizes="32x32" href="/favicon-32x32.jpg">
+<link rel="icon" type="image/jpeg" sizes="16x16" href="/favicon-16x16.jpg">
+
+<!-- iPhone/iPad home screen icons -->
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon-180x180.jpg">
+
+<!-- iPad-specific (optional) -->
+<link rel="apple-touch-icon" sizes="152x152" href="/favicon-152x152.jpg">
+
+<!-- iOS Safari configuration -->
+<meta name="mobile-web-app-capable" content="yes">
+
+<!-- Android home screen icons -->
+<link rel="icon" type="image/jpeg" sizes="192x192" href="/favicon-192x192.jpg">
+<link rel="icon" type="image/jpeg" sizes="512x512" href="/favicon-512x512.jpg">
+
+
+<!-- Utility functions -->
+<script>
+  h = function(e) {
+    var title = null; 
+
+    // Mouseover over link in the About page
+    if (e.type === "mouseover") {
+      var href = e.srcElement.getAttribute("href");
+      title = href.split(",")[1].split(":")[1];
+      href = href.split(",")[0].split(":")[1];
+      e.srcElement.setAttribute("href", atob(href));
+      e.srcElement.setAttribute("title", atob(title));
+    }
+
+    // Mouseover over link in the footer
+    else {
+      title = e.getAttribute("data-title");
+      var decoded = atob(title);
+      e.setAttribute("title", decoded);
+    }
+  }
+
+  d = function(e) {
+    var href = e.getAttribute("data-href");
+    var decoded = atob(href);
+    window.open(decoded, "_blank");
+  }
+
+  document.addEventListener("DOMContentLoaded", (event) => {
+
+    // Ensure that when a post is hovered on the home page it's title is underlined
+    document.querySelectorAll("body > main > article > a.entry-link").forEach(function (element) {
+      element.addEventListener("mouseover", (event) => {
+        element.parentNode.querySelectorAll("h2.entry-hint-parent")[0].style.textDecoration = "underline";
+      });
+      element.addEventListener("mouseout", (event) => {
+        element.parentNode.querySelectorAll("h2.entry-hint-parent")[0].style.textDecoration = "none";
+      });
+    });
+
+    // Bind the email address and phone number links in the about page
+    document.querySelectorAll("a[title=email-address],a[title=phone-number]").forEach(function (element) {
+      element.addEventListener("mouseover", h);
+    });
+
+    // Insert the "like me" message in the post header
+    document.querySelectorAll("html > body > main > article > div.post-content").forEach(function (element) {
+      var postMetaExists = false;
+
+      element.parentNode.querySelectorAll("div.post-meta").forEach(function (postMeta) {
+        postMetaExists = true;
+      });
+
+      if (postMetaExists) {
+        var likeMeElement = document.createElement("div");
+        likeMeElement.classList.add("post-header-like-me");
+        likeMeElement.innerHTML = `If you like this article follow me on <a href="https://github.com/bgaillard" title="Baptiste Gaillard's Github profile" target="_blank">Github</a> or <a href="https://www.linkedin.com/in/baptistegaillard/" title="Baptiste Gaillard's LinkedIn profile" target="_blank" >LinkedIn</a> to support my work ;)`;
+        element.insertBefore(likeMeElement, element.firstChild);
+      }
+    });
+
+  });
+
+</script>

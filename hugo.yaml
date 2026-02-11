@@ -1,0 +1,113 @@
+baseURL: "https://bgaillard.github.io/"
+title: Baptiste Gaillard
+pagination:
+  pagerSize: 5
+theme: PaperMod
+
+# @see https://gohugo.io/host-and-deploy/host-on-github-pages/#procedure
+caches:
+  images:
+    dir: :cacheDir/images
+
+enableRobotsTXT: true
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+
+# @see https://gohugo.io/configuration/minify/
+minify:
+  disableHTML: false
+  disableXML: true
+  minifyOutput: false
+
+params:
+  title: Baptiste Gaillard | Expert insights on Platform Engineering, DevOps, Cloud, SRE, and software architecture. Practical advice for modern IT challenges.
+  description: > 
+    Explore expert insights on Platform Engineering, DevOps, Cloud, SRE, and software architecture. Practical advice and solutions for modern IT challenges by Baptiste Gaillard, IT consultant.
+  keywords:
+    - Platform Engineering
+    - DevOps
+    - Cloud Computing
+    - Site Reliability Engineering
+    - SRE
+    - Software Architecture
+    - AWS
+    - Kubernetes, 
+    - IT Infrastructure, 
+    - System Design
+    - Tech Blog
+  author: Baptiste Gaillard
+  images: [
+    "favicon-192x192.jpg"
+  ]
+  DateFormat: "January 2, 2006"
+  defaultTheme: dark
+  disableThemeToggle: false
+  hideFooter: true
+
+  ShowReadingTime: true
+  ShowShareButtons: false
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: false
+  ShowCodeCopyButtons: true
+  ShowWordCount: true
+  ShowRssButtonInSectionTermList: true
+  UseHugoToc: true
+  disableSpecial1stPost: true
+  disableScrollToTop: false
+  comments: true
+  hidemeta: false
+  hideSummary: false
+  showtoc: false
+  tocopen: false
+
+  assets:
+    disableHLJS: true
+    favicon: "/favicon.ico"
+    favicon16x16: "/favicon-16x16.jpg"
+    favicon32x32: "/favicon-32x32.jpg"
+    apple_touch_icon: "/favicon-180x180.jpg"
+    safari_pinned_tab: "/favicon-192x192.jpg"
+
+  label:
+    text: "Baptiste Gaillard"
+
+  analytics:
+    google:
+      SiteVerificationTag: "09bgg4hedEXGP50Yjb4x_SS0IETly1bhpaKnRhpkUTI"
+
+  cover:
+    hidden: true # hide everywhere but not in structured data
+    hiddenInList: true # hide on list pages and home
+    hiddenInSingle: true # hide on single page
+
+menu:
+  main:
+    - identifier: about
+      name: About
+      url: /about/
+      weight: 10
+
+outputFormats:
+  llms:
+    mediaType: "text/plain"
+    baseName: "llms"
+    isPlainText: true
+    notAlternative: true
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
+    - llms
+
+# Read: https://github.com/adityatelange/hugo-PaperMod/wiki/FAQs#using-hugos-syntax-highlighter-chroma
+pygmentsUseClasses: false
+markup:
+  highlight:
+    codeFences: true
+    noClasses: true
+    style: github-dark
+
+taxonomies: []
