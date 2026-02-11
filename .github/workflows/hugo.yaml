@@ -19,6 +19,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
+      # FIXME: Update those values with Renovate
       DART_SASS_VERSION: 1.97.3
       GO_VERSION: 1.26.0
       HUGO_VERSION: 0.155.3
