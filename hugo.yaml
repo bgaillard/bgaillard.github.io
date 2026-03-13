@@ -6,6 +6,8 @@ baseURL: "https://bgaillard.github.io/"
 title: Baptiste Gaillard
 pagination:
   pagerSize: 5
+enableEmoji: true
+
 
 # @see https://gohugo.io/host-and-deploy/host-on-github-pages/#procedure
 caches:

@@ -1,4 +1,4 @@
---- 
+---
 date: 2026-02-11
 layout: post
 title: A great FastAPI Cookiecutter
@@ -6,6 +6,7 @@ summary: A great FastAPI Cookiecutter lkjahslfkjshd lfkjh lsdkjfh lskjdhf lskjdh
 ShowToc: true
 TocOpen: true
 draft: true
+expiryDate: 2026-01-01
 ---
 
 This is a test.
