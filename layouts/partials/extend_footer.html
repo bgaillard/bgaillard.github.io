@@ -48,6 +48,12 @@
 
 <script src="https://kit.fontawesome.com/1fac76b4b4.js" crossorigin="anonymous"></script>
 
+{{ if .Store.Get "hasMermaid" }}
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true });
+  </script>
+{{ end }}
 
 {{- if hugo.IsProduction | and (eq .Layout `post`) }}
 <script src="https://giscus.app/client.js"

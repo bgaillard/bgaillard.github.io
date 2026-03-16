@@ -1,5 +1,6 @@
 module:
   imports:
+  - path: github.com/KKKZOZ/hugo-admonitions
   - path: github.com/adityatelange/hugo-PaperMod
 
 baseURL: "https://bgaillard.github.io/"
@@ -27,7 +28,7 @@ minify:
 
 params:
   title: Baptiste Gaillard | Expert insights on Platform Engineering, DevOps, Cloud, SRE, and software architecture. Practical advice for modern IT challenges.
-  description: > 
+  description: >
     Explore expert insights on Platform Engineering, DevOps, Cloud, SRE, and software architecture. Practical advice and solutions for modern IT challenges by Baptiste Gaillard, IT consultant.
   keywords:
     - Platform Engineering
@@ -37,8 +38,8 @@ params:
     - SRE
     - Software Architecture
     - AWS
-    - Kubernetes, 
-    - IT Infrastructure, 
+    - Kubernetes,
+    - IT Infrastructure,
     - System Design
     - Tech Blog
   author: Baptiste Gaillard
