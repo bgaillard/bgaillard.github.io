@@ -1,0 +1,5 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "mistral/mistral-large-latest",
+  "small_model": "mistral/mistral-medium-latest"
+}
